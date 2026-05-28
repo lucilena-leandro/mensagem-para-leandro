@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Para Leandro</title>
+
   <style>
     body {
       margin: 0;
@@ -13,20 +14,34 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      white-space: pre-wrap;
     }
 
     .terminal {
       width: 80%;
       max-width: 800px;
+      white-space: pre-wrap;
+    }
+
+    .cursor {
+      display: inline-block;
+      color: #00ff9f;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
+
 <body>
 
 <div class="terminal">
-<pre>
-class Us:
+  <pre id="code"></pre><span class="cursor">|</span>
+</div>
+
+<script>
+const text = `class Us:
     def __init__(self):
         self.years_together = 10
         self.love = "infinite"
@@ -45,8 +60,22 @@ our_story = Us()
 
 while True:
     print(our_story.message())
-</pre>
-</div>
+`;
+
+let i = 0;
+const speed = 30;
+const codeElement = document.getElementById("code");
+
+function typeWriter() {
+  if (i < text.length) {
+    codeElement.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+typeWriter();
+</script>
 
 </body>
 </html>
